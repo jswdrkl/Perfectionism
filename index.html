@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Perfectionism – अचूकतेचा अट्टाहास</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Sans+Devanagari:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --text: #1e293b;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+      --primary: #3b82f6;
+      --primary-hover: #2563eb;
+      --btn-bg: #f1f5f9;
+      --btn-hover: #e2e8f0;
+      --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+    }
+
+    [data-theme="dark"] {
+      --bg: #0f172a;
+      --card-bg: #1e293b;
+      --text: #f1f5f9;
+      --text-muted: #94a3b8;
+      --border: #334155;
+      --primary: #60a5fa;
+      --primary-hover: #3b82f6;
+      --btn-bg: #334155;
+      --btn-hover: #475569;
+      --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3), 0 8px 10px -6px rgba(0, 0, 0, 0.3);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'IBM Plex Sans', 'IBM Plex Sans Devanagari', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.85;
+      transition: background-color 0.3s ease, color 0.3s ease;
+      padding: 24px 16px 60px;
+    }
+
+    .container {
+      max-width: 760px;
+      margin: 0 auto;
+      background-color: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      transition: background-color 0.3s ease, border-color 0.3s ease;
+    }
+
+    .top-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 12px;
+      padding: 20px 24px 0;
+    }
+
+    .icon-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 14px;
+      border: 1px solid var(--border);
+      border-radius: 9999px;
+      background-color: var(--btn-bg);
+      color: var(--text);
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 500;
+      transition: all 0.2s ease;
+    }
+
+    .icon-btn:hover {
+      background-color: var(--btn-hover);
+      transform: translateY(-1px);
+    }
+
+    .icon-btn svg {
+      width: 16px;
+      height: 16px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .banner-wrapper {
+      padding: 20px 24px 0;
+    }
+
+    .banner-svg {
+      width: 100%;
+      height: auto;
+      border-radius: 14px;
+      display: block;
+      border: 1px solid var(--border);
+    }
+
+    .content {
+      padding: 28px 32px 36px;
+    }
+
+    h1 {
+      font-size: clamp(22px, 4vw, 30px);
+      font-weight: 700;
+      line-height: 1.4;
+      margin-bottom: 24px;
+      color: var(--primary);
+      text-align: left;
+    }
+
+    .article-body {
+      text-align: justify;
+      text-justify: inter-word;
+      word-break: normal;
+      overflow-wrap: normal;
+      hyphens: none;
+      -webkit-hyphens: none;
+    }
+
+    .article-body p {
+      margin-bottom: 18px;
+      font-size: clamp(16px, 1.9vw, 17.5px);
+    }
+
+    .article-body p:last-child {
+      margin-bottom: 0;
+    }
+
+    .footer-date {
+      margin-top: 32px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+      color: var(--text-muted);
+      font-size: 15px;
+      text-align: right;
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(15, 23, 42, 0.95);
+      color: #ffffff;
+      padding: 10px 20px;
+      border-radius: 30px;
+      font-size: 14px;
+      opacity: 0;
+      transition: all 0.3s ease;
+      z-index: 1000;
+      pointer-events: none;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+
+    .toast.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+
+    @media (max-width: 600px) {
+      body {
+        padding: 12px 8px 40px;
+      }
+      .content {
+        padding: 20px 18px 24px;
+      }
+      .top-actions {
+        padding: 16px 16px 0;
+      }
+      .banner-wrapper {
+        padding: 16px 16px 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="top-actions">
+      <button class="icon-btn" id="themeBtn" aria-label="Toggle theme">
+        <svg id="themeIcon" viewBox="0 0 24 24">
+          <path d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 0 1-4.4 2.26 5.403 5.403 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z"/>
+        </svg>
+        <span id="themeLabel">Dark</span>
+      </button>
+
+      <button class="icon-btn" id="shareBtn" aria-label="Share">
+        <svg viewBox="0 0 24 24">
+          <circle cx="18" cy="5" r="3"></circle>
+          <circle cx="6" cy="12" r="3"></circle>
+          <circle cx="18" cy="19" r="3"></circle>
+          <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+          <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+        </svg>
+        <span>Share</span>
+      </button>
+    </div>
+
+    <div class="banner-wrapper">
+      <svg class="banner-svg" viewBox="0 0 800 360" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Perfectionism Illustration">
+        <defs>
+          <linearGradient id="skyGrad" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#0f172a" />
+            <stop offset="50%" stop-color="#1e293b" />
+            <stop offset="100%" stop-color="#334155" />
+          </linearGradient>
+          <linearGradient id="goldGrad" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#f59e0b" />
+            <stop offset="100%" stop-color="#d97706" />
+          </linearGradient>
+          <filter id="softGlow" x="-20%" y="-20%" width="140%" height="140%">
+            <feGaussianBlur stdDeviation="6" result="blur" />
+            <feComposite in="SourceGraphic" in2="blur" operator="over" />
+          </filter>
+        </defs>
+
+        <rect width="800" height="360" rx="14" fill="url(#skyGrad)" />
+
+        <g opacity="0.12" stroke="#ffffff" stroke-width="1">
+          <circle cx="260" cy="180" r="110" fill="none" stroke-dasharray="4 4" />
+          <circle cx="260" cy="180" r="140" fill="none" />
+          <line x1="100" y1="180" x2="420" y2="180" />
+          <line x1="260" y1="20" x2="260" y2="340" />
+        </g>
+
+        <!-- Left: Rigid, Stressed Perfectionism -->
+        <g transform="translate(190, 110)">
+          <rect x="0" y="0" width="140" height="140" rx="10" fill="none" stroke="#ef4444" stroke-width="2.5" stroke-dasharray="5 3" />
+          <line x1="20" y1="35" x2="120" y2="35" stroke="#ef4444" stroke-width="2" opacity="0.6" />
+          <line x1="20" y1="70" x2="120" y2="70" stroke="#ef4444" stroke-width="2" opacity="0.6" />
+          <line x1="20" y1="105" x2="120" y2="105" stroke="#ef4444" stroke-width="2" opacity="0.6" />
+          <circle cx="70" cy="70" r="26" fill="#ef4444" opacity="0.15" />
+          <path d="M60 60 L80 80 M80 60 L60 80" stroke="#ef4444" stroke-width="3" stroke-linecap="round" />
+        </g>
+
+        <!-- Dynamic Transition / Evolution flow -->
+        <path d="M355 180 C390 140, 425 220, 465 180" fill="none" stroke="url(#goldGrad)" stroke-width="3.5" stroke-linecap="round" stroke-dasharray="8 6" />
+        <polygon points="468,175 480,180 468,185" fill="#f59e0b" />
+
+        <!-- Right: Perfectly Imperfect Growth & Wabi-Sabi circle -->
+        <g transform="translate(540, 180)">
+          <!-- Open Zen Enso ring representing acceptance & iteration -->
+          <path d="M 0,-70 A 70,70 0 1,1 -60,35" fill="none" stroke="#38bdf8" stroke-width="5.5" stroke-linecap="round" filter="url(#softGlow)" />
+          <!-- Kintsugi crack filled with gold -->
+          <path d="M-15,-20 Q-5,0 12,-8 T30,22" fill="none" stroke="url(#goldGrad)" stroke-width="3" stroke-linecap="round" />
+          <!-- Harmonious organic core -->
+          <circle cx="0" cy="0" r="30" fill="#38bdf8" opacity="0.1" />
+          <polyline points="-10,2 -2,10 14,-6" fill="none" stroke="#22c55e" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" />
+        </g>
+
+        <!-- Subtle Textual Metaphor inside art -->
+        <text x="260" y="278" font-family="'IBM Plex Sans', sans-serif" font-size="13" fill="#cbd5e1" text-anchor="middle" letter-spacing="1">RIGID STANDARDS</text>
+        <text x="540" y="278" font-family="'IBM Plex Sans', sans-serif" font-size="13" fill="#cbd5e1" text-anchor="middle" letter-spacing="1">PRACTICE & EVOLUTION</text>
+      </svg>
+    </div>
+
+    <div class="content">
+      <h1>Perfectionism – अचूकतेचा अट्टाहास</h1>
+
+      <div class="article-body">
+        <p>आपल्या आजूबाजूस अनेक perfectionist व्यक्ती आपल्याला दिसत असतात, माहीती असतात असे आपण म्हणतो कारण आपल्याला त्यांचा तसा अनुभव आलेला असतो. स्वतः हाती घेतलेले, करवून हवे असलेले किंवा इतर करत असलेले कोणतेही कार्य अचूक(च) झाले पाहिजे अशी या प्रकारच्या व्यक्तींची अपेक्षा नव्हे आग्रह असतो. हा अनाठायी हट्ट खरेतर त्या व्यक्तींच्या रोजच्या जीवनात खूप तणाव निर्माण करत असतो आणि त्यांच्या सर्वच नातेसंबंधांत दुरावा! आणि हो, फक्त इतरच व्यक्ती perfectionist असतात असे नाही हं. बऱ्याच जणांसाठी आपण देखील एक अवास्तव perfectionist म्हणून तापदायक असू शकतो.</p>
+
+        <p>कोणतेही कार्य बिनचूक व्हावे ही अपेक्षा धरणे यात खरेतर काही गैर नाहीये. पण कायम(च) ते(च) तसे(च) त्याप्रकारे(च) झाले(च) पाहिजे(च) हा आणि यासारख्या अनेक ‘चं’ चा दुराग्रह मात्र सगळ्यांसाठीच तणाव निर्माण करणारा असतो. कारण असा आग्रह धरणारी व्यक्ती त्या कार्याचे सर्व parameters कायम एका(च), म्हणजे स्वतःच्या(च) दृष्टीकोनातून(च) पहात राहते आणि तिथे(च) गोष्टी ‘बिनसायला’ सुरुवात होते.</p>
+
+        <p>या विश्वात खरेतर काहीच शाश्वत (permanent) नाहीये आणि म्हणूनच सर्व काही कायमस्वरूपी ‘परफेक्ट’ असू शकत नाही. आपल्याला जे काही ‘परफेक्ट’ वाटते ते त्यावेळेसच्या वर्तमानासापेक्ष (relatively) बिनचूक असते; इतकेच. भविष्यात त्याहून काही वेगळी ‘अचूकता’ होऊन गेलेल्या ‘परफेक्टनेस’ला ‘इम्परफेक्ट’ ठरवू शकते!</p>
+
+        <p>रोजचे सामाजिक जीवन सुरळीत चालावे म्हणून विविध चालीरीती, काही शास्त्रीय प्रक्रिया आणि कायदे-कानून या ‘कार्यपद्धती’ आपण सर्वमान्य म्हणून स्वीकारल्या आहेत. या प्रक्रिया बिनचूक – perfect आहेत असे आपण म्हणतो खरे पण जरा बारकाईने विचार केला तर असे लक्षात येते की या प्रक्रिया-पद्धती देखील कालौघात उत्क्रांत (adapt & evolve) झालेल्या; म्हणजेच झाल्या चुका मान्य करत, नव्याचा स्वीकार करत, त्या अनुषंगाने दुरुस्त्या करत, बदलत पुढे चालत आलेल्या आहेत. म्हणजेच यात Perfectionismचा, अवास्तव बिनचूकतेचा अट्टाहास धरलेला नाही आणि म्हणून तणाव (stress) निर्माण न होता त्या पद्धती कायमस्वरूपी सर्वमान्य रहात आलेल्या आहेत.</p>
+
+        <p>या सर्वमान्य कार्यपद्धतींना म्हणजेच तर्काच्या कसोटीवर घासून पुसून बनवलेले कायदे आणि वैद्यकशास्त्रातील, उत्पादन प्रक्रियेतील (manufacturing) वेगवेगळ्या पद्धती यांना प्रक्रिया म्हणजेच procedure असा शब्द वापरला जातो.</p>
+
+        <p>कायद्यांची नावे देखील सिव्हिल प्रोसीजर कोड, क्रिमीनल प्रोसीजर कोड अशीच आहेत (होती). नव्याने आलेले कायदे देखील इंग्रजी ‘कोड’ नसले तरी ‘संहिता’ म्हणजेच ‘पद्धतशीर, नियम-आधारित संयोजने’च आहेत.</p>
+
+        <p>एखादा निष्णात सर्जन सर्वसामान्यांसाठी जरी ‘ऑपरेशन’ करत असला तरी त्यांच्या भाषेत ते ‘प्रोसीजर’च असते! खूप तर्कशुद्धतेने तयार केलेला कायदा देखील भविष्यातील एखाद्या घडामोडीमुळे, न्यायालयात नव्याने झालेल्या तर्कशुद्ध युक्तीवादानंतर (procedural arguments) तडीस गेलेल्या खटल्याच्या निकालामुळे आमूलाग्र बदलला जाऊ शकतो किंवा रद्दबातल देखील होऊ शकतो.</p>
+
+        <p>या सर्वमान्य कार्यपद्धतींना ‘प्रोसीजर’ म्हणण्याचे महत्वाचे कारण आहे ते म्हणजे – या प्रक्रियांमधे काहीही बिनचूक नाहीये; त्यात चुका होऊ शकतात आणि जर चूक झालीच तर ती मान्य करून, शक्य असल्यास दुरुस्त करून, नावीन्य स्वीकारत आणि शक्यतो पुन्हा चूक होऊ नये याची तजवीज करत पुढे जात राहणे यातच शहाणपणा आहे हे खुल्या दिलाने मान्य करणे.</p>
+
+        <p>आणि बहुदा म्हणूनच या प्रक्रिया-कार्यपद्धती (procedures) वापरणाऱ्या व्यक्ती, जसे की डॉक्टर, वकील आणि सनदी लेखापाल (Chartered Accountants) यांच्या व्यवसायाला ‘प्रॅक्टिस’ म्हणजे सराव या अर्थी संबोधले जात असावे. कारण या प्रक्रिया-पद्धती शक्य तितक्या अचूकपणे वापरत असताना देखील त्यात त्यांचेकडून चुका होण्याची शक्यता गृहीत धरून, त्या मान्य करून, सुधारून पुढे जाणे अभिप्रेत आहे म्हणून!</p>
+
+        <p>आता मग आपल्या आजूबाजूस जर इतके सगळे perfectly imperfect आहे आणि तरीही जगराहाटी सुरळीत चालत आलेली आहे; तर वैयक्तिक पातळीवर आपण Perfectionismचा - अचूकतेचा अट्टाहास धरून आपल्या आणि इतरांच्या ‘वर्तमानात' सतत तणाव निर्माण करावा का? याबद्दल आत्मनिरीक्षण अर्थात introspection करावे हे योग्य ठरेल असे वाटते.</p>
+
+        <p>अर्थात खुल्या दिलाने आत्मनिरीक्षण करण्याची कला शिकायची असेल तर ‘मनाचिये ठायी’ कृतज्ञतेचा भाव ठेवणे आणि निकोप सवयींचा शक्य तितका अंगिकार करणे हे ओघाने आलेच!</p>
+
+        <p class="footer-date">~२०२६०४०९</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast">Link copied to clipboard!</div>
+
+  <script>
+    const themeBtn = document.getElementById('themeBtn');
+    const themeLabel = document.getElementById('themeLabel');
+    const themeIcon = document.getElementById('themeIcon');
+    const shareBtn = document.getElementById('shareBtn');
+    const toast = document.getElementById('toast');
+
+    const sunPath = '<circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>';
+    const moonPath = '<path d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 0 1-4.4 2.26 5.403 5.403 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z"/>';
+
+    function setTheme(theme) {
+      if (theme === 'dark') {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        themeLabel.textContent = 'Light';
+        themeIcon.innerHTML = sunPath;
+      } else {
+        document.documentElement.removeAttribute('data-theme');
+        themeLabel.textContent = 'Dark';
+        themeIcon.innerHTML = moonPath;
+      }
+    }
+
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    if (prefersDark) {
+      setTheme('dark');
+    }
+
+    themeBtn.addEventListener('click', () => {
+      const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+      setTheme(isDark ? 'light' : 'dark');
+    });
+
+    function showToast(msg) {
+      toast.textContent = msg;
+      toast.classList.add('show');
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 2500);
+    }
+
+    shareBtn.addEventListener('click', async () => {
+      const shareData = {
+        title: 'Perfectionism – अचूकतेचा अट्टाहास',
+        text: 'Perfectionism – अचूकतेचा अट्टाहास: एक विचारप्रवर्तक लेख',
+        url: window.location.href
+      };
+
+      if (navigator.share) {
+        try {
+          await navigator.share(shareData);
+        } catch (err) {
+          if (err.name !== 'AbortError') {
+            copyToClipboard();
+          }
+        }
+      } else {
+        copyToClipboard();
+      }
+    });
+
+    function copyToClipboard() {
+      navigator.clipboard.writeText(window.location.href).then(() => {
+        showToast('Link copied to clipboard!');
+      }).catch(() => {
+        showToast('Failed to copy link');
+      });
+    }
+  </script>
+</body>
+</html>
