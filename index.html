@@ -1,373 +1,387 @@
 <!DOCTYPE html>
-<html lang="mr">
+<html lang="mr" class="light">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Perfectionism – अचूकतेचा अट्टाहास</title>
+  
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Sans+Devanagari:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Devanagari:wght@300;400;500;600;700&family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            plex: ['"IBM Plex Sans Devanagari"', '"IBM Plex Sans"', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              50: '#f5f7fa',
+              100: '#e4e7eb',
+              500: '#3b82f6',
+              600: '#2563eb',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
   <style>
-    :root {
-      --bg: #f8fafc;
-      --card-bg: #ffffff;
-      --text: #1e293b;
-      --text-muted: #64748b;
-      --border: #e2e8f0;
-      --primary: #3b82f6;
-      --primary-hover: #2563eb;
-      --btn-bg: #f1f5f9;
-      --btn-hover: #e2e8f0;
-      --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
-    }
-
-    [data-theme="dark"] {
-      --bg: #0f172a;
-      --card-bg: #1e293b;
-      --text: #f1f5f9;
-      --text-muted: #94a3b8;
-      --border: #334155;
-      --primary: #60a5fa;
-      --primary-hover: #3b82f6;
-      --btn-bg: #334155;
-      --btn-hover: #475569;
-      --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3), 0 8px 10px -6px rgba(0, 0, 0, 0.3);
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
     body {
-      font-family: 'IBM Plex Sans', 'IBM Plex Sans Devanagari', -apple-system, BlinkMacSystemFont, sans-serif;
-      background-color: var(--bg);
-      color: var(--text);
-      line-height: 1.85;
-      transition: background-color 0.3s ease, color 0.3s ease;
-      padding: 24px 16px 60px;
+      font-family: 'IBM Plex Sans Devanagari', 'IBM Plex Sans', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
 
-    .container {
-      max-width: 760px;
-      margin: 0 auto;
-      background-color: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      box-shadow: var(--shadow);
-      overflow: hidden;
-      transition: background-color 0.3s ease, border-color 0.3s ease;
-    }
-
-    .top-actions {
-      display: flex;
-      justify-content: flex-end;
-      gap: 12px;
-      padding: 20px 24px 0;
-    }
-
-    .icon-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 8px 14px;
-      border: 1px solid var(--border);
-      border-radius: 9999px;
-      background-color: var(--btn-bg);
-      color: var(--text);
-      cursor: pointer;
-      font-family: inherit;
-      font-size: 14px;
-      font-weight: 500;
-      transition: all 0.2s ease;
-    }
-
-    .icon-btn:hover {
-      background-color: var(--btn-hover);
-      transform: translateY(-1px);
-    }
-
-    .icon-btn svg {
-      width: 16px;
-      height: 16px;
-      stroke: currentColor;
-      fill: none;
-      stroke-width: 2;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-    }
-
-    .banner-wrapper {
-      padding: 20px 24px 0;
-    }
-
-    .banner-svg {
-      width: 100%;
-      height: auto;
-      border-radius: 14px;
-      display: block;
-      border: 1px solid var(--border);
-    }
-
-    .content {
-      padding: 28px 32px 36px;
-    }
-
-    h1 {
-      font-size: clamp(22px, 4vw, 30px);
-      font-weight: 700;
-      line-height: 1.4;
-      margin-bottom: 24px;
-      color: var(--primary);
-      text-align: left;
-    }
-
-    .article-body {
+    /* Justified body text ensuring words are not broken awkwardly across mobile/desktop */
+    .article-body-text {
       text-align: justify;
       text-justify: inter-word;
-      word-break: normal;
-      overflow-wrap: normal;
       hyphens: none;
       -webkit-hyphens: none;
+      word-break: normal;
+      overflow-wrap: normal;
     }
 
-    .article-body p {
-      margin-bottom: 18px;
-      font-size: clamp(16px, 1.9vw, 17.5px);
-    }
-
-    .article-body p:last-child {
-      margin-bottom: 0;
-    }
-
-    .footer-date {
-      margin-top: 32px;
-      padding-top: 20px;
-      border-top: 1px solid var(--border);
-      color: var(--text-muted);
-      font-size: 15px;
-      text-align: right;
-    }
-
-    .toast {
-      position: fixed;
-      bottom: 24px;
-      left: 50%;
-      transform: translateX(-50%) translateY(100px);
-      background: rgba(15, 23, 42, 0.95);
-      color: #ffffff;
-      padding: 10px 20px;
-      border-radius: 30px;
-      font-size: 14px;
-      opacity: 0;
-      transition: all 0.3s ease;
-      z-index: 1000;
-      pointer-events: none;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-    }
-
-    .toast.show {
-      transform: translateX(-50%) translateY(0);
-      opacity: 1;
-    }
-
-    @media (max-width: 600px) {
-      body {
-        padding: 12px 8px 40px;
+    @media (max-width: 640px) {
+      .article-body-text {
+        text-align: justify;
+        text-justify: inter-word;
       }
-      .content {
-        padding: 20px 18px 24px;
-      }
-      .top-actions {
-        padding: 16px 16px 0;
-      }
-      .banner-wrapper {
-        padding: 16px 16px 0;
-      }
+    }
+
+    /* Keyframes for the dynamic title SVG graphic */
+    @keyframes spinClockwise {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    @keyframes spinCounterClockwise {
+      from { transform: rotate(360deg); }
+      to { transform: rotate(0deg); }
+    }
+    @keyframes pulseAura {
+      0%, 100% { transform: scale(1); opacity: 0.85; }
+      50% { transform: scale(1.06); opacity: 1; }
+    }
+    @keyframes floatOrb {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-7px) rotate(5deg); }
+    }
+    @keyframes gentleSway {
+      0%, 100% { transform: rotate(-3deg); }
+      50% { transform: rotate(3deg); }
+    }
+
+    .anim-spin-cw {
+      animation: spinClockwise 26s linear infinite;
+      transform-origin: center;
+    }
+    .anim-spin-ccw {
+      animation: spinCounterClockwise 34s linear infinite;
+      transform-origin: center;
+    }
+    .anim-pulse {
+      animation: pulseAura 4.5s ease-in-out infinite;
+      transform-origin: center;
+    }
+    .anim-float {
+      animation: floatOrb 5s ease-in-out infinite;
+      transform-origin: center;
+    }
+    .anim-sway {
+      animation: gentleSway 6s ease-in-out infinite;
+      transform-origin: 200px 105px;
     }
   </style>
 </head>
-<body>
 
-  <div class="container">
-    <div class="top-actions">
-      <button class="icon-btn" id="themeBtn" aria-label="Toggle theme">
-        <svg id="themeIcon" viewBox="0 0 24 24">
-          <path d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 0 1-4.4 2.26 5.403 5.403 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z"/>
-        </svg>
-        <span id="themeLabel">Dark</span>
-      </button>
+<body class="bg-[#F8FAFC] dark:bg-[#0B1120] text-slate-800 dark:text-slate-200 transition-colors duration-300 min-h-screen font-plex antialiased selection:bg-indigo-100 dark:selection:bg-indigo-900/60 selection:text-indigo-900 dark:selection:text-indigo-100">
 
-      <button class="icon-btn" id="shareBtn" aria-label="Share">
-        <svg viewBox="0 0 24 24">
-          <circle cx="18" cy="5" r="3"></circle>
-          <circle cx="6" cy="12" r="3"></circle>
-          <circle cx="18" cy="19" r="3"></circle>
-          <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
-          <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
-        </svg>
-        <span>Share</span>
-      </button>
-    </div>
+  <header class="sticky top-0 z-50 backdrop-blur-md bg-white/80 dark:bg-[#0F172A]/85 border-b border-slate-200/80 dark:border-slate-800/80 transition-colors duration-300">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+      <div class="flex items-center space-x-2.5">
+        <span class="inline-block w-2.5 h-2.5 rounded-full bg-gradient-to-r from-amber-500 to-rose-500"></span>
+        <span class="font-medium text-sm tracking-wide text-slate-600 dark:text-slate-400">चिंतन आणि विचार</span>
+      </div>
 
-    <div class="banner-wrapper">
-      <svg class="banner-svg" viewBox="0 0 800 360" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Perfectionism Illustration">
-        <defs>
-          <linearGradient id="skyGrad" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stop-color="#0f172a" />
-            <stop offset="50%" stop-color="#1e293b" />
-            <stop offset="100%" stop-color="#334155" />
-          </linearGradient>
-          <linearGradient id="goldGrad" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stop-color="#f59e0b" />
-            <stop offset="100%" stop-color="#d97706" />
-          </linearGradient>
-          <filter id="softGlow" x="-20%" y="-20%" width="140%" height="140%">
-            <feGaussianBlur stdDeviation="6" result="blur" />
-            <feComposite in="SourceGraphic" in2="blur" operator="over" />
-          </filter>
-        </defs>
+      <div class="flex items-center gap-2.5">
+        <!-- Share Button -->
+        <button id="shareBtn" type="button" aria-label="Share article"
+          class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-medium text-slate-700 dark:text-slate-200 bg-slate-100 dark:bg-slate-800/90 hover:bg-slate-200 dark:hover:bg-slate-700/80 border border-slate-200 dark:border-slate-700 transition-all duration-200 active:scale-95 shadow-sm">
+          <svg class="w-3.5 h-3.5 stroke-current" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/>
+            <polyline points="16 6 12 2 8 6"/>
+            <line x1="12" y1="2" x2="12" y2="15"/>
+          </svg>
+          <span>शेअर</span>
+        </button>
 
-        <rect width="800" height="360" rx="14" fill="url(#skyGrad)" />
-
-        <g opacity="0.12" stroke="#ffffff" stroke-width="1">
-          <circle cx="260" cy="180" r="110" fill="none" stroke-dasharray="4 4" />
-          <circle cx="260" cy="180" r="140" fill="none" />
-          <line x1="100" y1="180" x2="420" y2="180" />
-          <line x1="260" y1="20" x2="260" y2="340" />
-        </g>
-
-        <!-- Left: Rigid, Stressed Perfectionism -->
-        <g transform="translate(190, 110)">
-          <rect x="0" y="0" width="140" height="140" rx="10" fill="none" stroke="#ef4444" stroke-width="2.5" stroke-dasharray="5 3" />
-          <line x1="20" y1="35" x2="120" y2="35" stroke="#ef4444" stroke-width="2" opacity="0.6" />
-          <line x1="20" y1="70" x2="120" y2="70" stroke="#ef4444" stroke-width="2" opacity="0.6" />
-          <line x1="20" y1="105" x2="120" y2="105" stroke="#ef4444" stroke-width="2" opacity="0.6" />
-          <circle cx="70" cy="70" r="26" fill="#ef4444" opacity="0.15" />
-          <path d="M60 60 L80 80 M80 60 L60 80" stroke="#ef4444" stroke-width="3" stroke-linecap="round" />
-        </g>
-
-        <!-- Dynamic Transition / Evolution flow -->
-        <path d="M355 180 C390 140, 425 220, 465 180" fill="none" stroke="url(#goldGrad)" stroke-width="3.5" stroke-linecap="round" stroke-dasharray="8 6" />
-        <polygon points="468,175 480,180 468,185" fill="#f59e0b" />
-
-        <!-- Right: Perfectly Imperfect Growth & Wabi-Sabi circle -->
-        <g transform="translate(540, 180)">
-          <!-- Open Zen Enso ring representing acceptance & iteration -->
-          <path d="M 0,-70 A 70,70 0 1,1 -60,35" fill="none" stroke="#38bdf8" stroke-width="5.5" stroke-linecap="round" filter="url(#softGlow)" />
-          <!-- Kintsugi crack filled with gold -->
-          <path d="M-15,-20 Q-5,0 12,-8 T30,22" fill="none" stroke="url(#goldGrad)" stroke-width="3" stroke-linecap="round" />
-          <!-- Harmonious organic core -->
-          <circle cx="0" cy="0" r="30" fill="#38bdf8" opacity="0.1" />
-          <polyline points="-10,2 -2,10 14,-6" fill="none" stroke="#22c55e" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" />
-        </g>
-
-        <!-- Subtle Textual Metaphor inside art -->
-        <text x="260" y="278" font-family="'IBM Plex Sans', sans-serif" font-size="13" fill="#cbd5e1" text-anchor="middle" letter-spacing="1">RIGID STANDARDS</text>
-        <text x="540" y="278" font-family="'IBM Plex Sans', sans-serif" font-size="13" fill="#cbd5e1" text-anchor="middle" letter-spacing="1">PRACTICE & EVOLUTION</text>
-      </svg>
-    </div>
-
-    <div class="content">
-      <h1>Perfectionism – अचूकतेचा अट्टाहास</h1>
-
-      <div class="article-body">
-        <p>आपल्या आजूबाजूस अनेक perfectionist व्यक्ती आपल्याला दिसत असतात, माहीती असतात असे आपण म्हणतो कारण आपल्याला त्यांचा तसा अनुभव आलेला असतो. स्वतः हाती घेतलेले, करवून हवे असलेले किंवा इतर करत असलेले कोणतेही कार्य अचूक(च) झाले पाहिजे अशी या प्रकारच्या व्यक्तींची अपेक्षा नव्हे आग्रह असतो. हा अनाठायी हट्ट खरेतर त्या व्यक्तींच्या रोजच्या जीवनात खूप तणाव निर्माण करत असतो आणि त्यांच्या सर्वच नातेसंबंधांत दुरावा! आणि हो, फक्त इतरच व्यक्ती perfectionist असतात असे नाही हं. बऱ्याच जणांसाठी आपण देखील एक अवास्तव perfectionist म्हणून तापदायक असू शकतो.</p>
-
-        <p>कोणतेही कार्य बिनचूक व्हावे ही अपेक्षा धरणे यात खरेतर काही गैर नाहीये. पण कायम(च) ते(च) तसे(च) त्याप्रकारे(च) झाले(च) पाहिजे(च) हा आणि यासारख्या अनेक ‘चं’ चा दुराग्रह मात्र सगळ्यांसाठीच तणाव निर्माण करणारा असतो. कारण असा आग्रह धरणारी व्यक्ती त्या कार्याचे सर्व parameters कायम एका(च), म्हणजे स्वतःच्या(च) दृष्टीकोनातून(च) पहात राहते आणि तिथे(च) गोष्टी ‘बिनसायला’ सुरुवात होते.</p>
-
-        <p>या विश्वात खरेतर काहीच शाश्वत (permanent) नाहीये आणि म्हणूनच सर्व काही कायमस्वरूपी ‘परफेक्ट’ असू शकत नाही. आपल्याला जे काही ‘परफेक्ट’ वाटते ते त्यावेळेसच्या वर्तमानासापेक्ष (relatively) बिनचूक असते; इतकेच. भविष्यात त्याहून काही वेगळी ‘अचूकता’ होऊन गेलेल्या ‘परफेक्टनेस’ला ‘इम्परफेक्ट’ ठरवू शकते!</p>
-
-        <p>रोजचे सामाजिक जीवन सुरळीत चालावे म्हणून विविध चालीरीती, काही शास्त्रीय प्रक्रिया आणि कायदे-कानून या ‘कार्यपद्धती’ आपण सर्वमान्य म्हणून स्वीकारल्या आहेत. या प्रक्रिया बिनचूक – perfect आहेत असे आपण म्हणतो खरे पण जरा बारकाईने विचार केला तर असे लक्षात येते की या प्रक्रिया-पद्धती देखील कालौघात उत्क्रांत (adapt & evolve) झालेल्या; म्हणजेच झाल्या चुका मान्य करत, नव्याचा स्वीकार करत, त्या अनुषंगाने दुरुस्त्या करत, बदलत पुढे चालत आलेल्या आहेत. म्हणजेच यात Perfectionismचा, अवास्तव बिनचूकतेचा अट्टाहास धरलेला नाही आणि म्हणून तणाव (stress) निर्माण न होता त्या पद्धती कायमस्वरूपी सर्वमान्य रहात आलेल्या आहेत.</p>
-
-        <p>या सर्वमान्य कार्यपद्धतींना म्हणजेच तर्काच्या कसोटीवर घासून पुसून बनवलेले कायदे आणि वैद्यकशास्त्रातील, उत्पादन प्रक्रियेतील (manufacturing) वेगवेगळ्या पद्धती यांना प्रक्रिया म्हणजेच procedure असा शब्द वापरला जातो.</p>
-
-        <p>कायद्यांची नावे देखील सिव्हिल प्रोसीजर कोड, क्रिमीनल प्रोसीजर कोड अशीच आहेत (होती). नव्याने आलेले कायदे देखील इंग्रजी ‘कोड’ नसले तरी ‘संहिता’ म्हणजेच ‘पद्धतशीर, नियम-आधारित संयोजने’च आहेत.</p>
-
-        <p>एखादा निष्णात सर्जन सर्वसामान्यांसाठी जरी ‘ऑपरेशन’ करत असला तरी त्यांच्या भाषेत ते ‘प्रोसीजर’च असते! खूप तर्कशुद्धतेने तयार केलेला कायदा देखील भविष्यातील एखाद्या घडामोडीमुळे, न्यायालयात नव्याने झालेल्या तर्कशुद्ध युक्तीवादानंतर (procedural arguments) तडीस गेलेल्या खटल्याच्या निकालामुळे आमूलाग्र बदलला जाऊ शकतो किंवा रद्दबातल देखील होऊ शकतो.</p>
-
-        <p>या सर्वमान्य कार्यपद्धतींना ‘प्रोसीजर’ म्हणण्याचे महत्वाचे कारण आहे ते म्हणजे – या प्रक्रियांमधे काहीही बिनचूक नाहीये; त्यात चुका होऊ शकतात आणि जर चूक झालीच तर ती मान्य करून, शक्य असल्यास दुरुस्त करून, नावीन्य स्वीकारत आणि शक्यतो पुन्हा चूक होऊ नये याची तजवीज करत पुढे जात राहणे यातच शहाणपणा आहे हे खुल्या दिलाने मान्य करणे.</p>
-
-        <p>आणि बहुदा म्हणूनच या प्रक्रिया-कार्यपद्धती (procedures) वापरणाऱ्या व्यक्ती, जसे की डॉक्टर, वकील आणि सनदी लेखापाल (Chartered Accountants) यांच्या व्यवसायाला ‘प्रॅक्टिस’ म्हणजे सराव या अर्थी संबोधले जात असावे. कारण या प्रक्रिया-पद्धती शक्य तितक्या अचूकपणे वापरत असताना देखील त्यात त्यांचेकडून चुका होण्याची शक्यता गृहीत धरून, त्या मान्य करून, सुधारून पुढे जाणे अभिप्रेत आहे म्हणून!</p>
-
-        <p>आता मग आपल्या आजूबाजूस जर इतके सगळे perfectly imperfect आहे आणि तरीही जगराहाटी सुरळीत चालत आलेली आहे; तर वैयक्तिक पातळीवर आपण Perfectionismचा - अचूकतेचा अट्टाहास धरून आपल्या आणि इतरांच्या ‘वर्तमानात' सतत तणाव निर्माण करावा का? याबद्दल आत्मनिरीक्षण अर्थात introspection करावे हे योग्य ठरेल असे वाटते.</p>
-
-        <p>अर्थात खुल्या दिलाने आत्मनिरीक्षण करण्याची कला शिकायची असेल तर ‘मनाचिये ठायी’ कृतज्ञतेचा भाव ठेवणे आणि निकोप सवयींचा शक्य तितका अंगिकार करणे हे ओघाने आलेच!</p>
-
-        <p class="footer-date">~२०२६०४०९</p>
+        <!-- Theme Toggle -->
+        <button id="themeToggleBtn" type="button" aria-label="Toggle light and dark theme"
+          class="p-2 rounded-full text-slate-600 dark:text-slate-300 bg-slate-100 dark:bg-slate-800/90 hover:bg-slate-200 dark:hover:bg-slate-700/80 border border-slate-200 dark:border-slate-700 transition-all duration-200 active:scale-95 shadow-sm">
+          <!-- Sun Icon (for dark mode) -->
+          <svg id="sunIcon" class="hidden w-4 h-4 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="5" stroke-linecap="round" stroke-linejoin="round"/>
+            <line x1="12" y1="1" x2="12" y2="3"/>
+            <line x1="12" y1="21" x2="12" y2="23"/>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+            <line x1="1" y1="12" x2="3" y2="12"/>
+            <line x1="21" y1="12" x2="23" y2="12"/>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+          </svg>
+          <!-- Moon Icon (for light mode) -->
+          <svg id="moonIcon" class="w-4 h-4 text-slate-700" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+          </svg>
+        </button>
       </div>
     </div>
+  </header>
+
+  <main class="max-w-3xl mx-auto px-4 sm:px-6 py-8 sm:py-14">
+    <article class="bg-white dark:bg-[#131D31] rounded-3xl p-6 sm:p-12 md:p-14 border border-slate-200/90 dark:border-slate-800 shadow-xl shadow-slate-200/50 dark:shadow-none transition-colors duration-300">
+      
+      <!-- Animated Title SVG Graphic: Representing "Perfection vs Living Balance & Process" -->
+      <div class="flex justify-center mb-8 sm:mb-10 select-none">
+        <svg class="w-56 h-56 sm:w-64 sm:h-64 drop-shadow-md" viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Perfection and balance animated illustration">
+          <defs>
+            <linearGradient id="gradRing1" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#38BDF8" />
+              <stop offset="50%" stop-color="#818CF8" />
+              <stop offset="100%" stop-color="#F472B6" />
+            </linearGradient>
+            <linearGradient id="gradRing2" x1="100%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stop-color="#FBBF24" />
+              <stop offset="50%" stop-color="#34D399" />
+              <stop offset="100%" stop-color="#60A5FA" />
+            </linearGradient>
+            <linearGradient id="centerCore" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#F59E0B" />
+              <stop offset="100%" stop-color="#EC4899" />
+            </linearGradient>
+            <radialGradient id="softGlow" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#60A5FA" stop-opacity="0.35"/>
+              <stop offset="100%" stop-color="#60A5FA" stop-opacity="0"/>
+            </radialGradient>
+            <filter id="blurFilter" x="-20%" y="-20%" width="140%" height="140%">
+              <feGaussianBlur stdDeviation="6"/>
+            </filter>
+          </defs>
+
+          <!-- Soft Aura -->
+          <circle cx="200" cy="150" r="115" fill="url(#softGlow)" class="anim-pulse" filter="url(#blurFilter)"/>
+
+          <!-- Outer Dynamic Celestial Track (Evolving orbit) -->
+          <g class="anim-spin-cw">
+            <circle cx="200" cy="150" r="92" stroke="url(#gradRing1)" stroke-width="2" stroke-dasharray="10 8 4 8" opacity="0.6"/>
+            <circle cx="292" cy="150" r="5" fill="#38BDF8"/>
+            <circle cx="108" cy="150" r="4" fill="#F472B6"/>
+          </g>
+
+          <!-- Middle Calibrated Precision Gear/Ring -->
+          <g class="anim-spin-ccw">
+            <circle cx="200" cy="150" r="68" stroke="url(#gradRing2)" stroke-width="2.5" stroke-dasharray="24 10 12 10" opacity="0.75"/>
+            <circle cx="200" cy="82" r="4.5" fill="#34D399"/>
+            <circle cx="200" cy="218" r="4" fill="#FBBF24"/>
+          </g>
+
+          <!-- Balance Scale Beam (Harmonizing human adaptability vs absolute rigidity) -->
+          <g class="anim-sway">
+            <line x1="140" y1="130" x2="260" y2="130" stroke="#94A3B8" stroke-width="2.5" stroke-linecap="round"/>
+            <path d="M 140 130 L 126 164 L 154 164 Z" fill="none" stroke="#60A5FA" stroke-width="2" stroke-linejoin="round" opacity="0.8"/>
+            <path d="M 260 130 L 246 164 L 274 164 Z" fill="none" stroke="#F472B6" stroke-width="2" stroke-linejoin="round" opacity="0.8"/>
+            <circle cx="140" cy="130" r="3.5" fill="#60A5FA"/>
+            <circle cx="260" cy="130" r="3.5" fill="#F472B6"/>
+          </g>
+
+          <!-- Core Floating Compass of Evolution & Grace -->
+          <g class="anim-float">
+            <circle cx="200" cy="150" r="28" fill="url(#centerCore)" class="anim-pulse" opacity="0.9"/>
+            <!-- Golden Ratio Spiral / Adaptability swirl -->
+            <path d="M 200 134 C 209 134 216 141 216 150 C 216 157 210 162 203 162 C 197 162 192 157 192 151 C 192 147 195 144 199 144 C 201 144 203 146 203 148" 
+                  stroke="#FFFFFF" stroke-width="2.2" stroke-linecap="round" fill="none"/>
+            <circle cx="200" cy="150" r="3.2" fill="#FFFFFF"/>
+          </g>
+        </svg>
+      </div>
+
+      <h1 class="text-center text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-slate-900 dark:text-white leading-snug mb-10 sm:mb-12">
+        Perfectionism – अचूकतेचा अट्टाहास
+      </h1>
+
+      <div class="space-y-6 sm:space-y-7 text-base sm:text-lg leading-[1.85] sm:leading-[1.95] text-slate-700 dark:text-slate-300 font-normal">
+        
+        <p class="article-body-text">
+          आपल्या आजूबाजूस अनेक perfectionist व्यक्ती आपल्याला दिसत असतात, माहीती असतात असे आपण म्हणतो कारण आपल्याला त्यांचा तसा अनुभव आलेला असतो. स्वतः हाती घेतलेले, करवून हवे असलेले किंवा इतर करत असलेले कोणतेही कार्य अचूक(च) झाले पाहिजे अशी या प्रकारच्या व्यक्तींची अपेक्षा नव्हे आग्रह असतो. हा अनाठायी हट्ट खरेतर त्या व्यक्तींच्या रोजच्या जीवनात खूप तणाव निर्माण करत असतो आणि त्यांच्या सर्वच नातेसंबंधांत दुरावा! आणि हो, फक्त इतरच व्यक्ती perfectionist असतात असे नाही हं. बऱ्याच जणांसाठी आपण देखील एक अवास्तव perfectionist म्हणून तापदायक असू शकतो.
+        </p>
+
+        <p class="article-body-text">
+          कोणतेही कार्य बिनचूक व्हावे ही अपेक्षा धरणे यात खरेतर काही गैर नाहीये. पण कायम(च) ते(च) तसे(च) त्याप्रकारे(च) झाले(च) पाहिजे(च) हा आणि यासारख्या अनेक ‘चं’ चा दुराग्रह मात्र सगळ्यांसाठीच तणाव निर्माण करणारा असतो. कारण असा आग्रह धरणारी व्यक्ती त्या कार्याचे सर्व parameters कायम एका(च), म्हणजे स्वतःच्या(च) दृष्टीकोनातून(च) पहात राहते आणि तिथे(च) गोष्टी ‘बिनसायला’ सुरुवात होते.
+        </p>
+
+        <p class="article-body-text">
+          या विश्वात खरेतर काहीच शाश्वत (permanent) नाहीये आणि म्हणूनच सर्व काही कायमस्वरूपी ‘परफेक्ट’ असू शकत नाही. आपल्याला जे काही ‘परफेक्ट’ वाटते ते त्यावेळेसच्या वर्तमानासापेक्ष (relatively) बिनचूक असते; इतकेच. भविष्यात त्याहून काही वेगळी ‘अचूकता’ होऊन गेलेल्या ‘परफेक्टनेस’ला ‘इम्परफेक्ट’ ठरवू शकते!
+        </p>
+
+        <p class="article-body-text">
+          रोजचे सामाजिक जीवन सुरळीत चालावे म्हणून विविध चालीरीती, काही शास्त्रीय प्रक्रिया आणि कायदे-कानून या ‘कार्यपद्धती’ आपण सर्वमान्य म्हणून स्वीकारल्या आहेत. या प्रक्रिया बिनचूक – perfect आहेत असे आपण म्हणतो खरे पण जरा बारकाईने विचार केला तर असे लक्षात येते की या प्रक्रिया-पद्धती देखील कालौघात उत्क्रांत (adapt & evolve) झालेल्या; म्हणजेच झाल्या चुका मान्य करत, नव्याचा स्वीकार करत, त्या अनुषंगाने दुरुस्त्या करत, बदलत पुढे चालत आलेल्या आहेत. म्हणजेच यात Perfectionismचा, अवास्तव बिनचूकतेचा अट्टाहास धरलेला नाही आणि म्हणून तणाव (stress) निर्माण न होता त्या पद्धती कायमस्वरूपी सर्वमान्य रहात आलेल्या आहेत.
+        </p>
+
+        <p class="article-body-text">
+          या सर्वमान्य कार्यपद्धतींना म्हणजेच तर्काच्या कसोटीवर घासून पुसून बनवलेले कायदे आणि वैद्यकशास्त्रातील, उत्पादन प्रक्रियेतील (manufacturing) वेगवेगळ्या पद्धती यांना प्रक्रिया म्हणजेच procedure असा शब्द वापरला जातो.
+        </p>
+
+        <p class="article-body-text">
+          कायद्यांची नावे देखील सिव्हिल प्रोसीजर कोड, क्रिमीनल प्रोसीजर कोड अशीच आहेत (होती). नव्याने आलेले कायदे देखील इंग्रजी ‘कोड’ नसले तरी ‘संहिता’ म्हणजेच ‘पद्धतशीर, नियम-आधारित संयोजने’च आहेत.
+        </p>
+
+        <p class="article-body-text">
+          एखादा निष्णात सर्जन सर्वसामान्यांसाठी जरी ‘ऑपरेशन’ करत असला तरी त्यांच्या भाषेत ते ‘प्रोसीजर’च असते! खूप तर्कशुद्धतेने तयार केलेला कायदा देखील भविष्यातील एखाद्या घडामोडीमुळे, न्यायालयात नव्याने झालेल्या तर्कशुद्ध युक्तीवादानंतर (procedural arguments) तडीस गेलेल्या खटल्याच्या निकालामुळे आमूलाग्र बदलला जाऊ शकतो किंवा रद्दबातल देखील होऊ शकतो.
+        </p>
+
+        <p class="article-body-text">
+          या सर्वमान्य कार्यपद्धतींना ‘प्रोसीजर’ म्हणण्याचे महत्वाचे कारण आहे ते म्हणजे – या प्रक्रियांमधे काहीही बिनचूक नाहीये; त्यात चुका होऊ शकतात आणि जर चूक झालीच तर ती मान्य करून, शक्य असल्यास दुरुस्त करून, नावीन्य स्वीकारत आणि शक्यतो पुन्हा चूक होऊ नये याची तजवीज करत पुढे जात राहणे यातच शहाणपणा आहे हे खुल्या दिलाने मान्य करणे.
+        </p>
+
+        <p class="article-body-text">
+          आणि बहुदा म्हणूनच या प्रक्रिया-कार्यपद्धती (procedures) वापरणाऱ्या व्यक्ती, जसे की डॉक्टर, वकील आणि सनदी लेखापाल (Chartered Accountants) यांच्या व्यवसायाला ‘प्रॅक्टिस’ म्हणजे सराव या अर्थी संबोधले जात असावे. कारण या प्रक्रिया-पद्धती शक्य तितक्या अचूकपणे वापरत असताना देखील त्यात त्यांचेकडून चुका होण्याची शक्यता गृहीत धरून, त्या मान्य करून, सुधारून पुढे जाणे अभिप्रेत आहे म्हणून!
+        </p>
+
+        <p class="article-body-text">
+          आता मग आपल्या आजूबाजूस जर इतके सगळे perfectly imperfect आहे आणि तरीही जगराहाटी सुरळीत चालत आलेली आहे; तर वैयक्तिक पातळीवर आपण Perfectionismचा - अचूकतेचा अट्टाहास धरून आपल्या आणि इतरांच्या ‘वर्तमानात' सतत तणाव निर्माण करावा का? याबद्दल आत्मनिरीक्षण अर्थात introspection करावे हे योग्य ठरेल असे वाटते.
+        </p>
+
+        <p class="article-body-text">
+          अर्थात खुल्या दिलाने आत्मनिरीक्षण करण्याची कला शिकायची असेल तर ‘मनाचिये ठायी’ कृतज्ञतेचा भाव ठेवणे आणि निकोप सवयींचा शक्य तितका अंगिकार करणे हे ओघाने आलेच!
+        </p>
+
+      </div>
+
+      <div class="mt-14 pt-8 text-center text-slate-500 dark:text-slate-400 font-medium tracking-widest select-none">
+        ✯✯ २०२६०४०९ ✯✯
+      </div>
+
+    </article>
+  </main>
+
+  <div id="toastNotification" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 pointer-events-none transition-all duration-300 flex items-center gap-3 px-4 py-3 rounded-2xl bg-slate-900 text-white dark:bg-white dark:text-slate-900 shadow-2xl border border-slate-700/30 text-sm font-medium">
+    <svg class="w-4 h-4 text-emerald-400 dark:text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+    </svg>
+    <span id="toastMsg">लिंक कॉपी झाली!</span>
   </div>
 
-  <div class="toast" id="toast">Link copied to clipboard!</div>
-
   <script>
-    const themeBtn = document.getElementById('themeBtn');
-    const themeLabel = document.getElementById('themeLabel');
-    const themeIcon = document.getElementById('themeIcon');
-    const shareBtn = document.getElementById('shareBtn');
-    const toast = document.getElementById('toast');
+    // Theme switching logic
+    const htmlElement = document.documentElement;
+    const themeToggleBtn = document.getElementById('themeToggleBtn');
+    const sunIcon = document.getElementById('sunIcon');
+    const moonIcon = document.getElementById('moonIcon');
 
-    const sunPath = '<circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>';
-    const moonPath = '<path d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 0 1-4.4 2.26 5.403 5.403 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z"/>';
-
-    function setTheme(theme) {
-      if (theme === 'dark') {
-        document.documentElement.setAttribute('data-theme', 'dark');
-        themeLabel.textContent = 'Light';
-        themeIcon.innerHTML = sunPath;
+    function updateIcons(isDark) {
+      if (isDark) {
+        sunIcon.classList.remove('hidden');
+        moonIcon.classList.add('hidden');
       } else {
-        document.documentElement.removeAttribute('data-theme');
-        themeLabel.textContent = 'Dark';
-        themeIcon.innerHTML = moonPath;
+        sunIcon.classList.add('hidden');
+        moonIcon.classList.remove('hidden');
       }
     }
 
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    if (prefersDark) {
-      setTheme('dark');
+    // Initialize theme based on preference or stored value
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      htmlElement.classList.add('dark');
+      htmlElement.classList.remove('light');
+      updateIcons(true);
+    } else {
+      htmlElement.classList.remove('dark');
+      htmlElement.classList.add('light');
+      updateIcons(false);
     }
 
-    themeBtn.addEventListener('click', () => {
-      const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-      setTheme(isDark ? 'light' : 'dark');
+    themeToggleBtn.addEventListener('click', () => {
+      const isCurrentlyDark = htmlElement.classList.contains('dark');
+      if (isCurrentlyDark) {
+        htmlElement.classList.remove('dark');
+        htmlElement.classList.add('light');
+        localStorage.setItem('theme', 'light');
+        updateIcons(false);
+      } else {
+        htmlElement.classList.add('dark');
+        htmlElement.classList.remove('light');
+        localStorage.setItem('theme', 'dark');
+        updateIcons(true);
+      }
     });
 
-    function showToast(msg) {
-      toast.textContent = msg;
-      toast.classList.add('show');
-      setTimeout(() => {
-        toast.classList.remove('show');
-      }, 2500);
+    // Toast feedback function
+    const toast = document.getElementById('toastNotification');
+    const toastMsg = document.getElementById('toastMsg');
+    let toastTimeout;
+
+    function showToast(message) {
+      toastMsg.textContent = message;
+      toast.classList.remove('translate-y-20', 'opacity-0', 'pointer-events-none');
+      toast.classList.add('translate-y-0', 'opacity-100');
+      
+      clearTimeout(toastTimeout);
+      toastTimeout = setTimeout(() => {
+        toast.classList.remove('translate-y-0', 'opacity-100');
+        toast.classList.add('translate-y-20', 'opacity-0', 'pointer-events-none');
+      }, 3000);
     }
 
-    shareBtn.addEventListener('click', async () => {
+    // Share functionality with Web Share API and Clipboard fallback
+    const shareBtn = document.getElementById('shareBtn');
+    shareBtn.addEventListener('click', () => {
       const shareData = {
         title: 'Perfectionism – अचूकतेचा अट्टाहास',
-        text: 'Perfectionism – अचूकतेचा अट्टाहास: एक विचारप्रवर्तक लेख',
-        url: window.location.href
+        text: 'Perfectionism – अचूकतेचा अट्टाहास (चिंतन आणि विचार)',
+        url: window.location.href,
       };
 
       if (navigator.share) {
-        try {
-          await navigator.share(shareData);
-        } catch (err) {
-          if (err.name !== 'AbortError') {
-            copyToClipboard();
-          }
-        }
+        navigator.share(shareData).catch(() => {
+          fallbackCopyToClipboard();
+        });
       } else {
-        copyToClipboard();
+        fallbackCopyToClipboard();
       }
     });
 
-    function copyToClipboard() {
-      navigator.clipboard.writeText(window.location.href).then(() => {
-        showToast('Link copied to clipboard!');
-      }).catch(() => {
-        showToast('Failed to copy link');
-      });
+    function fallbackCopyToClipboard() {
+      const textToCopy = window.location.href;
+      
+      // Using execCommand fallback for seamless iframe & cross-browser support
+      const textArea = document.createElement("textarea");
+      textArea.value = textToCopy;
+      textArea.style.position = "fixed";
+      textArea.style.left = "-999999px";
+      textArea.style.top = "-999999px";
+      document.body.appendChild(textArea);
+      textArea.focus();
+      textArea.select();
+
+      try {
+        const successful = document.execCommand('copy');
+        if (successful) {
+          showToast('वाचण्यासाठी लिंक क्लिपबोर्डवर कॉपी केली!');
+        } else {
+          showToast('लिंक कॉपी करता आली नाही');
+        }
+      } catch (err) {
+        showToast('लिंक कॉपी करता आली नाही');
+      }
+
+      document.body.removeChild(textArea);
     }
   </script>
 </body>
